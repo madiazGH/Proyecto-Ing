@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RutasStack } from "../navegacion/NavegadorApp";
 import { obtenerProductos } from "../api/productos";
 import { Producto } from "../producto";
+import TarjetaProducto from "../componentes/TarjetaProducto";
 
 type Props = NativeStackScreenProps<RutasStack, "ListaProductos">;
 
@@ -36,14 +37,10 @@ export default function ListaProductosPantalla({ navigation }: Props) {
             data={productos}
             keyExtractor={(item) => item.id?.toString() || Math.random().toString()}
             renderItem={({ item }) => (
-            <TouchableOpacity
+                <TarjetaProducto
+                producto={item}
                 onPress={() => navigation.navigate("DetalleProducto", { id: item.id! })}
-            >
-                <View style={{ flexDirection: "row", marginVertical: 10, alignItems: "center" }}>
-                <Image source={{ uri: item.image }} style={{ width: 100, height: 100, resizeMode: "contain", marginBottom: 20 }} />
-                <Text style={{ fontSize: 16, flexShrink: 1 }}>{item.title}</Text>
-                </View>
-            </TouchableOpacity>
+                />
             )}
         />
         </View>
